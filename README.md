@@ -9,6 +9,15 @@ See in branches to get the library test you want
 ## Projects setup
 For each sub-project/library test follow the commands
 
+### Link the model 
+To use the model classes, you need to link from the directory **model** to the correct project.
+
+#### In Windows 
+Start the windows command prompt as administrator and execute in the *src* of the test :
+```
+mklink /J model ..\..\model
+```
+
 ### Install packages 
 ```
 npm install
