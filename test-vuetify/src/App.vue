@@ -5,7 +5,7 @@
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-content>
-            <TestForm />
+            <TestForm @ajout="ajout" />
         </v-content>
     </v-app>
 </template>
@@ -18,8 +18,11 @@ export default {
     components: {
         TestForm
     },
-    data: () => ({
-        //
-    })
+    data: () => ({}),
+    methods: {
+        ajout(objet) {
+            console.log(objet);
+        }
+    }
 };
 </script>
