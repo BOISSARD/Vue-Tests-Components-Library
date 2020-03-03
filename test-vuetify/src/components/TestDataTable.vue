@@ -1,15 +1,36 @@
 <template>
     <v-container>
-        <v-data-table
-            :headers="colonnes"
-            :items="items"
-            item-key="nom"
-            group-asc="nom"
-            :items-per-page="10"
-            show-select
-            show-group-by
-            class="elevation-6"
-        ></v-data-table> <!-- group-by="categorie" -->
+        <v-card class="elevation-6">
+            <v-card-title>
+                Les objets
+                <v-spacer></v-spacer>
+                <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                ></v-text-field>
+            </v-card-title>
+            <v-data-table
+                :headers="colonnes"
+                :items="lignes"
+                item-key="nom"
+                :items-per-page="10"
+                show-select
+                show-group-by
+                multi-sort
+                :sort-by="['categorie', 'valeur']"
+                :sort-desc="[false, true]"
+                :search="search"
+                :loading="loading"
+                loading-text="Loading... Please wait"
+            ><!-- group-by="categorie" group-asc="nom"
+               <!--  <template v-slot:item.sup10="item.valeur > 10">
+                    <v-simple-checkbox v-model="item.sup10" disabled></v-simple-checkbox>
+                </template> -->
+            </v-data-table>
+        </v-card>
     </v-container>
 </template>
 
@@ -21,21 +42,21 @@ export default {
     name: "TestDataTable",
     data() {
         return {
-            colonnes: []
+            search: "",
+            loading: true,
+            lignes: []
         };
     },
     props: {
-        items: [],
-        headers: []
+        colonnes: [],
+        items: []
     },
     mounted() {
-        console.log(this.items);
-        for (const pro in Object.keys(new Objet())) {
-            this.colonnes.push({
-                text: Object.keys(new Objet())[pro].toUpperCase(),
-                value: Object.keys(new Objet())[pro]
-            });
-        }
+        console.log("Colonnes : ", this.colonnes);
+        setTimeout(() => {
+            this.lignes = this.items;
+            this.loading = false;
+        }, 2555);
     }
 };
 </script>

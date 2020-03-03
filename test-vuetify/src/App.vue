@@ -6,7 +6,7 @@
         </v-app-bar>
         <v-content>
             <TestForm @ajout="ajout" />
-            <TestDataTable :items="objets" /> <!-- :items="objets"  desserts -->
+            <TestDataTable :items="objets" :colonnes="colonnes"/> <!-- :items="objets"  desserts -->
         </v-content>
     </v-app>
 </template>
@@ -25,15 +25,27 @@ export default {
     },
     data: () => ({
         objets: [
-            new Objet("objet5", 23, Categories.numero2),
+            new Objet("objet5", 13, Categories.numero2),
             new Objet("objet1", 5, Categories.numero1),
             new Objet("objet4", 7, Categories.numero2),
             new Objet("objet2", 15, Categories.numero1),
             new Objet("objet6", 9, Categories.numero3),
-            new Objet("objet3", 12, Categories.numero1),
-        ],      
+            new Objet("objet3", 22, Categories.numero1),
+        ],   
+        colonnes: []   
     }),
     mounted(){
+        for (const pro in Object.keys(new Objet())) {
+            this.colonnes.push({
+                text: Object.keys(new Objet())[pro].toUpperCase(),
+                value: Object.keys(new Objet())[pro],
+                filterable: Object.keys(new Objet())[pro] !== "categorie"
+            });
+        }
+        /*this.colonnes.push({
+            text: "valeur > 10",
+            value: "sup10",
+        });*/
     },
     methods: {
         ajout(objet) {
