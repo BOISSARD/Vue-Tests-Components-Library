@@ -1,13 +1,13 @@
 <template>
-    <v-form v-model="valid">
+    <v-form>
         <v-container>
             <v-row>
                 <v-col cols="12" md="3">
                     <v-text-field
-                        v-model="firstname"
-                        :rules="nameRules"
+                        v-model="name"
+                        :rules="[v => !!v || 'Le Nom est requis']"
                         :counter="10"
-                        label="First name"
+                        label="Nom"
                         required
                         outlined
                     ></v-text-field>
@@ -15,10 +15,10 @@
 
                 <v-col cols="12" md="3">
                     <v-text-field
-                        v-model="lastname"
-                        :rules="nameRules"
-                        :counter="10"
-                        label="Last name"
+                        v-model="valeur"
+                        :rules="[v => !!v || 'La valeur doit être un nombre']"
+                        label="Valeur"
+                        type="number"
                         required
                         outlined
                     ></v-text-field>
@@ -26,17 +26,17 @@
 
                 <v-col cols="12" md="3">
                     <v-select
-                        v-model="select"
+                        v-model="categorie"
                         :items="items"
-                        :rules="[v => !!v || 'Item is required']"
-                        label="Item"
+                        :rules="[v => !!v || 'Une catégorie est requise']"
+                        label="Catégorie"
                         required
                         outlined
                     ></v-select>
                 </v-col>
 
                 <v-col cols="12" md="3">
-                    <v-btn x-large block color="primary" class="mr-4" @click="validate">Validate</v-btn>
+                    <v-btn x-large block color="primary" class="mr-4">Validate</v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -44,13 +44,14 @@
 </template>
 
 <script>
-/* eslint-disable */
-import Categories from '../model/categories'
+import { Categories } from '../model/categories.js'
 
 export default {
     name: "TestForm",
     data: () => ({
-        //items: ["Item 1", "Item 2", "Item 3", "Item 4"]
+        name: "",
+        valeur: 0,
+        categorie : null,
         items : Object.values(Categories)
     })
 };
