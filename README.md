@@ -1,6 +1,15 @@
 # Vue-Tests-Components-Library
 
-## Project setup
+## Repository goal
+
+Repository with different vuejs components library project to test them separately.
+
+See in branches to get the library test you want
+
+## Projects setup
+For each sub-project/library test follow the commands
+
+### Install packages 
 ```
 npm install
 ```
