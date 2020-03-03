@@ -1,5 +1,5 @@
 <template>
-    <v-form>
+    <v-form v-model="valid" lazy-validation ref="form">
         <v-container>
             <v-row>
                 <v-col cols="12" md="3">
@@ -14,7 +14,6 @@
                         dense
                     ></v-text-field>
                 </v-col>
-
                 <v-col cols="12" md="3">
                     <v-text-field
                         v-model="valeur"
@@ -26,7 +25,6 @@
                         dense
                     ></v-text-field>
                 </v-col>
-
                 <v-col cols="12" md="3">
                     <v-select
                         v-model="categorie"
@@ -38,11 +36,11 @@
                         required
                         outlined
                         dense
+                        placeholder="Une catégorie"
                     ></v-select>
                 </v-col>
-
                 <v-col cols="12" md="3">
-                    <v-btn large block color="primary" class="mr-4" @click="ajouter">Ajouter</v-btn>
+                    <v-btn large block color="primary" class="mr-4" @click="ajouter" :disabled="!valid">Ajouter</v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -59,14 +57,17 @@ export default {
         nom: "",
         valeur: 0,
         categorie: null,
-        items: Object.entries(Categories)
+        items: Object.entries(Categories),
+        valid: false
     }),
     methods: {
         ajouter() {
-            this.$emit(
-                "ajout",
-                new Objet(this.nom, this.valeur, Categories[this.categorie])
-            );
+            //if(this.valid)
+            if (this.$refs.form.validate())
+                this.$emit(
+                    "ajout",
+                    new Objet(this.nom, this.valeur, Categories[this.categorie])
+                );
         }
     }
 };
