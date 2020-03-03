@@ -1,11 +1,11 @@
 <template>
-    <v-app>
+    <v-app class="font-regular">
         <v-app-bar app color="primary" dark>
             <div class="d-flex align-center"></div>
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-content>
-            <TestForm />
+            <TestForm @ajout="ajout" />
         </v-content>
     </v-app>
 </template>
@@ -18,8 +18,11 @@ export default {
     components: {
         TestForm
     },
-    data: () => ({
-        //
-    })
+    data: () => ({}),
+    methods: {
+        ajout(objet) {
+            console.log(objet);
+        }
+    }
 };
 </script>
