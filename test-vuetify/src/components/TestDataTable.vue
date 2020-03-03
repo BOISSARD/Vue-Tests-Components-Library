@@ -28,12 +28,16 @@
                 show-expand
                 :loading="loading"
                 loading-text="Chargement des données..."
-            > <!-- group-by="categorie" group-asc="nom" -->
+            >
+                <!-- group-by="categorie" group-asc="nom" -->
                 <template v-slot:item.sup10="{ item }">
                     <v-simple-checkbox v-model="item.sup10" disabled></v-simple-checkbox>
                 </template>
-                <template v-slot:expanded-item="{ headers }">
-                    <td :colspan="headers.length">Peek-a-boo!</td>
+                <template v-slot:expanded-item="{ headers, item }">
+                    <td :colspan="headers.length">{{ item.nom }} a une valeur de {{ item.valeur }}</td>
+                </template>
+                <template v-slot:item.valeur="{ item }">
+                    <v-chip :color="getColor(item.valeur)" dark>{{ item.valeur }}</v-chip>
                 </template>
             </v-data-table>
         </v-card>
@@ -51,7 +55,7 @@ export default {
             search: "",
             loading: true,
             lignes: [],
-            expanded: [],
+            expanded: []
         };
     },
     props: {
@@ -66,7 +70,14 @@ export default {
                 element.sup10 = element.valeur > 10;
             });
         }, 0); // 2300
-    }
+    },
+    methods: {
+      getColor (valeur) {
+        if (valeur > 20) return 'red'
+        else if (valeur > 10) return 'orange'
+        else return 'green'
+      },
+    },
 };
 </script>
 
