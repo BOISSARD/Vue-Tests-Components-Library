@@ -42,10 +42,11 @@ export default {
                 filterable: Object.keys(new Objet())[pro] !== "categorie"
             });
         }
-        /*this.colonnes.push({
+        this.colonnes.push({
             text: "valeur > 10",
             value: "sup10",
-        });*/
+            filterable : false
+        }, { text: '', value: 'data-table-expand' });
     },
     methods: {
         ajout(objet) {

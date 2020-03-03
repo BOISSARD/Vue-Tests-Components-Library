@@ -23,12 +23,18 @@
                 :sort-by="['categorie', 'valeur']"
                 :sort-desc="[false, true]"
                 :search="search"
+                single-expand
+                :expanded.sync="expanded"
+                show-expand
                 :loading="loading"
-                loading-text="Loading... Please wait"
-            ><!-- group-by="categorie" group-asc="nom"
-               <!--  <template v-slot:item.sup10="item.valeur > 10">
+                loading-text="Chargement des données..."
+            > <!-- group-by="categorie" group-asc="nom" -->
+                <template v-slot:item.sup10="{ item }">
                     <v-simple-checkbox v-model="item.sup10" disabled></v-simple-checkbox>
-                </template> -->
+                </template>
+                <template v-slot:expanded-item="{ headers }">
+                    <td :colspan="headers.length">Peek-a-boo!</td>
+                </template>
             </v-data-table>
         </v-card>
     </v-container>
@@ -44,7 +50,8 @@ export default {
         return {
             search: "",
             loading: true,
-            lignes: []
+            lignes: [],
+            expanded: [],
         };
     },
     props: {
@@ -52,11 +59,13 @@ export default {
         items: []
     },
     mounted() {
-        console.log("Colonnes : ", this.colonnes);
         setTimeout(() => {
             this.lignes = this.items;
             this.loading = false;
-        }, 2555);
+            this.lignes.forEach(element => {
+                element.sup10 = element.valeur > 10;
+            });
+        }, 0); // 2300
     }
 };
 </script>
