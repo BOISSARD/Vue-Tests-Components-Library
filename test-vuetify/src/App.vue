@@ -6,22 +6,39 @@
         </v-app-bar>
         <v-content>
             <TestForm @ajout="ajout" />
+            <TestDataTable :items="objets" /> <!-- :items="objets"  desserts -->
         </v-content>
     </v-app>
 </template>
 
 <script>
 import TestForm from "./components/TestForm";
+import TestDataTable from "./components/TestDataTable";
+
+import Objet from "./model/objet";
+import { Categories } from "./model/categories";
 
 export default {
     name: "App",
     components: {
-        TestForm
+        TestForm, TestDataTable
     },
-    data: () => ({}),
+    data: () => ({
+        objets: [
+            new Objet("objet5", 23, Categories.numero2),
+            new Objet("objet1", 5, Categories.numero1),
+            new Objet("objet4", 7, Categories.numero2),
+            new Objet("objet2", 15, Categories.numero1),
+            new Objet("objet6", 9, Categories.numero3),
+            new Objet("objet3", 12, Categories.numero1),
+        ],      
+    }),
+    mounted(){
+    },
     methods: {
         ajout(objet) {
-            console.log(objet);
+            console.log(objet)
+            this.objets.push(objet)
         }
     }
 };

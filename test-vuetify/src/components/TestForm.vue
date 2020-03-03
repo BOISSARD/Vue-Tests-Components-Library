@@ -6,7 +6,6 @@
                     <v-text-field
                         v-model="nom"
                         :rules="[v => !!v || 'Le Nom est requis']"
-                        :counter="10"
                         label="Nom"
                         placeholder="Votre nom"
                         required
@@ -69,12 +68,12 @@ export default {
     }),
     methods: {
         ajouter() {
-            //if(this.valid)
-            if (this.$refs.form.validate())
-                this.$emit(
-                    "ajout",
-                    new Objet(this.nom, this.valeur, Categories[this.categorie])
-                );
+            if (this.$refs.form.validate()){
+                this.$emit("ajout", new Objet(this.nom, this.valeur, Categories[this.categorie]));
+                this.nom = "";
+                this.valeur = new Number(0);
+                this.categorie = null;
+            }
         }
     }
 };
