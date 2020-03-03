@@ -40,7 +40,14 @@
                     ></v-select>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-btn large block color="primary" class="mr-4" @click="ajouter" :disabled="!valid">Ajouter</v-btn>
+                    <v-btn
+                        large
+                        block
+                        color="primary"
+                        class="mr-4"
+                        @click="ajouter"
+                        :disabled="!valid"
+                    >Ajouter</v-btn>
                 </v-col>
             </v-row>
         </v-container>
