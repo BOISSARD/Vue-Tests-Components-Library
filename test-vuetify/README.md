@@ -1,4 +1,4 @@
-# Vue-Tests-Components-Library
+# test-vuetify
 
 ## Project setup
 ```
