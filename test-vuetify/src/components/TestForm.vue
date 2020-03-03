@@ -55,7 +55,7 @@ export default {
     name: "TestForm",
     data: () => ({
         nom: "",
-        valeur: 0,
+        valeur: new Number("0"),
         categorie: null,
         items: Object.entries(Categories),
         valid: false
