@@ -73,7 +73,7 @@
                                 :key="index"
                                 @click="itemsPerPage = number"
                             >
-                                <v-list-item-title>{{ number }}</v-list-item-title>
+                                <v-list-item-title>{{ number === Infinity ? 'Tout' : number }}</v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </v-menu>
