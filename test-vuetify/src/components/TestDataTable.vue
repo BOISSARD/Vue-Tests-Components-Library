@@ -18,10 +18,12 @@
                 item-key="nom"
                 :items-per-page="10"
                 show-select
-                show-group-by
                 multi-sort
                 :sort-by="['categorie', 'valeur']"
                 :sort-desc="[false, true]"
+                show-group-by
+                :group-by="groupes"
+                :group-desc="groupDirection"
                 :search="search"
                 single-expand
                 :expanded.sync="expanded"
@@ -29,9 +31,13 @@
                 :loading="loading"
                 loading-text="Chargement des données..."
             >
-                <!-- group-by="categorie" group-asc="nom" -->
+                <!-- group-by="categorie" group-desc="true"   -->
+                <template v-slot:top v-if="groupes !== '' && groupes.length !== 0">
+                    <v-switch v-model="groupDirection" label="Group Decroissant"  class="pa-3"></v-switch>
+                </template>
                 <template v-slot:item.sup10="{ item }">
-                    <v-simple-checkbox :value="item.valeur > 10" disabled></v-simple-checkbox>
+                    <!--v-simple-checkbox :value="item.valeur > 10" disabled></v-simple-checkbox-->
+                    <v-simple-checkbox :value="item.sup10" disabled></v-simple-checkbox>
                 </template>
                 <template v-slot:expanded-item="{ headers, item }">
                     <td :colspan="headers.length">{{ item.nom }} a une valeur de {{ item.valeur }}</td>
@@ -46,7 +52,6 @@
 
 <script>
 import Objet from "../model/objet";
-//import { Categories } from "../model/categories";
 
 export default {
     name: "TestDataTable",
@@ -55,27 +60,39 @@ export default {
             search: "",
             loading: true,
             lignes: [],
-            expanded: []
+            expanded: [],
+            groupDirection: false,
+            groupes: "categorie"
         };
     },
-    props: {
-        colonnes: [],
-        items: []
+    watch: {
+        lignes(nouvelles){
+            this.lignes.forEach(element => {element.sup10 = element.valeur > 10});
+        },
+        groupes: {
+            immediate: true,
+            handler(newVal, oldVal){
+                console.log(newVal, oldVal, this.groupes)
+            }
+        }
     },
+    props: ["colonnes", "items"],
     mounted() {
         setTimeout(() => {
             this.lignes = this.items;
             this.loading = false;
-            //this.lignes.forEach(element => {element.sup10 = element.valeur > 10});
-        }, 0); // 2300
+        }, 2300); // 2300
     },
     methods: {
-      getColor (valeur) {
-        if (valeur > 20) return 'red'
-        else if (valeur > 10) return 'orange'
-        else return 'green'
-      },
-    },
+        getColor(valeur) {
+            if (valeur > 20) return "red";
+            else if (valeur > 10) return "orange";
+            else return "green";
+        },
+        test(){
+            console.log(this.groupes)
+        }
+    }
 };
 </script>
 

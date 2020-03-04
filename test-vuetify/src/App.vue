@@ -34,7 +34,7 @@ export default {
         ],   
         colonnes: []   
     }),
-    mounted(){
+    created(){
         for (const pro in Object.keys(new Objet())) {
             this.colonnes.push({
                 text: Object.keys(new Objet())[pro].toUpperCase(),
@@ -45,7 +45,7 @@ export default {
         this.colonnes.push({
             text: "valeur > 10",
             value: "sup10",
-            filterable : false
+            filterable : true
         }, { text: '', value: 'data-table-expand' });
     },
     methods: {
