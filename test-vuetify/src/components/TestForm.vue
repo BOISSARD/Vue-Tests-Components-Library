@@ -59,6 +59,17 @@ import { Categories } from "../model/categories";
 
 export default {
     name: "TestForm",
+    props : ["objetCourant"],
+    watch: {
+        objetCourant(newObjet, oldObjet){
+            console.debug(newObjet, oldObjet);
+            this.nom = newObjet.nom
+            this.valeur = newObjet.valeur
+            for(var key in Categories) 
+                if(Categories[key] === newObjet.categorie)
+                    this.categorie = key
+        }
+    },
     data: () => ({
         nom: "",
         valeur: new Number("0"),

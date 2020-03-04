@@ -2,7 +2,7 @@
     <v-container>
         <v-card class="elevation-6">
             <v-card-title>
-                Les objets
+                Les objets {{lignes.length}}
                 <v-spacer></v-spacer>
                 <v-text-field
                     v-model="search"
@@ -36,7 +36,11 @@
             >
                 <!-- group-by="categorie" group-desc="true"   -->
                 <template v-slot:top>
-                    <v-switch v-model="groupDirection" label="Group Decroissant" class="pa-3"></v-switch>
+                    <v-switch
+                        v-model="groupDirection"
+                        label="Inverser sens d'affichage"
+                        class="pa-3"
+                    ></v-switch>
                 </template>
                 <template v-slot:item.sup10="{ item }">
                     <!--v-simple-checkbox :value="item.valeur > 10" disabled></v-simple-checkbox-->
@@ -48,9 +52,13 @@
                 <template v-slot:item.valeur="{ item }">
                     <v-chip :color="getColor(item.valeur)" dark>{{ item.valeur }}</v-chip>
                 </template>
+                <template v-slot:item.action="{ item }">
+                    <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+                    <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+                </template>
             </v-data-table>
             <v-row align="center" justify="center" class="pt-2">
-                <v-col lg="1">
+                <v-col sm="2" md="1">
                     <v-text-field
                         :value="itemsPerPage"
                         label="Nombre par page"
@@ -63,10 +71,10 @@
                         @input="itemsPerPage = parseInt($event, 10)"
                     ></v-text-field>
                 </v-col>
-                <v-col lg="6">
+                <v-col sm="6" md="6">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
                 </v-col>
-                <v-col lg="1"></v-col>
+                <v-col sm="2" md="1"></v-col>
             </v-row>
         </v-card>
     </v-container>
@@ -81,7 +89,7 @@ export default {
         return {
             page: 1,
             pageCount: 0,
-            itemsPerPage: 3,
+            itemsPerPage: 6,
             search: "",
             loading: true,
             lignes: [],
@@ -101,23 +109,31 @@ export default {
             handler(newVal, oldVal) {
                 console.log(newVal, oldVal, this.groupes);
             }
+        },
+        items: {
+            immediate: true,
+            handler(newItems) {
+                this.loading = true;
+                setTimeout(() => {
+                    this.lignes = this.items;
+                    this.loading = false;
+                }, 530); // 2300
+            }
         }
     },
     props: ["colonnes", "items"],
-    mounted() {
-        setTimeout(() => {
-            this.lignes = this.items;
-            this.loading = false;
-        }, 530); // 2300
-    },
+    mounted() {},
     methods: {
         getColor(valeur) {
             if (valeur > 20) return "red";
             else if (valeur > 10) return "orange";
             else return "green";
         },
-        test() {
-            console.log(this.groupes);
+        editItem(objet) {
+            this.$emit("editObjet", objet);
+        },
+        deleteItem(objet) {
+            this.$emit("deleteObjet", objet);
         }
     }
 };

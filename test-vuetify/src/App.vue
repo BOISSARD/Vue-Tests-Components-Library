@@ -5,8 +5,14 @@
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-content>
-            <TestForm @ajout="ajout" />
-            <TestDataTable :items="objets" :colonnes="colonnes"/> <!-- :items="objets"  desserts -->
+            <TestForm @ajout="ajout" :objetCourant="objetCourant" />
+            <TestDataTable
+                :items="objets"
+                :colonnes="colonnes"
+                @editObjet="editObjet"
+                @deleteObjet="deleteObjet"
+            />
+            <!-- :items="objets"  desserts -->
         </v-content>
     </v-app>
 </template>
@@ -21,7 +27,8 @@ import { Categories } from "./model/categories";
 export default {
     name: "App",
     components: {
-        TestForm, TestDataTable
+        TestForm,
+        TestDataTable
     },
     data: () => ({
         objets: [
@@ -30,11 +37,12 @@ export default {
             new Objet("objet4", 7, Categories.numero2),
             new Objet("objet2", 15, Categories.numero1),
             new Objet("objet6", 9, Categories.numero3),
-            new Objet("objet3", 22, Categories.numero1),
-        ],   
-        colonnes: []   
+            new Objet("objet3", 22, Categories.numero1)
+        ],
+        colonnes: [],
+        objetCourant: null
     }),
-    created(){
+    created() {
         for (const pro in Object.keys(new Objet())) {
             this.colonnes.push({
                 text: Object.keys(new Objet())[pro].toUpperCase(),
@@ -42,16 +50,29 @@ export default {
                 filterable: Object.keys(new Objet())[pro] !== "categorie"
             });
         }
-        this.colonnes.push({
-            text: "valeur > 10",
-            value: "sup10",
-            filterable : true
-        }, { text: '', value: 'data-table-expand' });
+        this.colonnes.push(
+            {
+                text: "valeur > 10",
+                value: "sup10",
+                filterable: true
+            },
+            { text: "", value: "data-table-expand" },
+            { text: "Actions  ", value: "action", sortable: false }
+        );
     },
     methods: {
         ajout(objet) {
-            console.log(objet)
-            this.objets.push(objet)
+            if (this.objetCourant === null) this.objets.push(objet);
+            else {
+                this.objets.splice(this.objets.findIndex(ob => this.objetCourant.nom === ob.nom), 1, objet)
+                this.objetCourant = null;
+            }
+        },
+        editObjet(objet) {
+            this.objetCourant = objet;
+        },
+        deleteObjet(objet) {
+            this.objets = this.objets.filter(ob => ob.nom !== objet.nom);
         }
     }
 };
