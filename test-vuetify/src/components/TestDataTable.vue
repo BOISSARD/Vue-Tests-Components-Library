@@ -58,23 +58,30 @@
                 </template>
             </v-data-table>
             <v-row align="center" justify="center" class="pt-2">
-                <v-col sm="2" md="1">
-                    <v-text-field
-                        :value="itemsPerPage"
-                        label="Nombre par page"
-                        type="number"
-                        solo
-                        min="-1"
-                        max="100"
-                        class="mt-6"
-                        dense
-                        @input="itemsPerPage = parseInt($event, 10)"
-                    ></v-text-field>
+                <v-col offset-sm="1" cols="5" md="3">
+                    <span class="grey--text">Items per page</span>
+                    <v-menu offset-y>
+                        <template v-slot:activator="{ on }">
+                            <v-btn text color="primary" class="ml-2" v-on="on">
+                                {{ itemsPerPage === Infinity ? 'Tout' : itemsPerPage }}
+                                <v-icon>mdi-chevron-down</v-icon>
+                            </v-btn>
+                        </template>
+                        <v-list>
+                            <v-list-item
+                                v-for="(number, index) in itemsPerPageArray"
+                                :key="index"
+                                @click="itemsPerPage = number"
+                            >
+                                <v-list-item-title>{{ number }}</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
                 </v-col>
-                <v-col sm="6" md="6">
+                <v-col cols="4">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
                 </v-col>
-                <v-col sm="2" md="1"></v-col>
+                <v-col cols="2" md="4"></v-col>
             </v-row>
         </v-card>
     </v-container>
@@ -90,6 +97,7 @@ export default {
             page: 1,
             pageCount: 0,
             itemsPerPage: 3,
+            itemsPerPageArray: [3, 6, 12, Infinity],
             search: "",
             loading: true,
             lignes: [],
@@ -107,7 +115,7 @@ export default {
         groupes: {
             immediate: true,
             handler(newVal, oldVal) {
-                console.log(newVal, oldVal, this.groupes);
+                //console.debug(newVal, oldVal, this.groupes);
             }
         },
         items: {
