@@ -31,7 +31,7 @@
             >
                 <!-- group-by="categorie" group-asc="nom" -->
                 <template v-slot:item.sup10="{ item }">
-                    <v-simple-checkbox v-model="item.sup10" disabled></v-simple-checkbox>
+                    <v-simple-checkbox :value="item.valeur > 10" disabled></v-simple-checkbox>
                 </template>
                 <template v-slot:expanded-item="{ headers, item }">
                     <td :colspan="headers.length">{{ item.nom }} a une valeur de {{ item.valeur }}</td>
@@ -66,9 +66,7 @@ export default {
         setTimeout(() => {
             this.lignes = this.items;
             this.loading = false;
-            this.lignes.forEach(element => {
-                element.sup10 = element.valeur > 10;
-            });
+            //this.lignes.forEach(element => {element.sup10 = element.valeur > 10});
         }, 0); // 2300
     },
     methods: {
