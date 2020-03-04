@@ -89,7 +89,7 @@ export default {
         return {
             page: 1,
             pageCount: 0,
-            itemsPerPage: 6,
+            itemsPerPage: 3,
             search: "",
             loading: true,
             lignes: [],

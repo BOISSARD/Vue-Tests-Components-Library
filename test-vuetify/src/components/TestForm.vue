@@ -46,7 +46,7 @@
                         class="mr-4"
                         @click="ajouter"
                         :disabled="!valid"
-                    >Ajouter</v-btn>
+                    >{{ bouton }}</v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -59,15 +59,20 @@ import { Categories } from "../model/categories";
 
 export default {
     name: "TestForm",
-    props : ["objetCourant"],
+    props: ["objetCourant"],
     watch: {
-        objetCourant(newObjet, oldObjet){
+        objetCourant(newObjet, oldObjet) {
             console.debug(newObjet, oldObjet);
-            this.nom = newObjet.nom
-            this.valeur = newObjet.valeur
-            for(var key in Categories) 
-                if(Categories[key] === newObjet.categorie)
-                    this.categorie = key
+            if (newObjet !== null) {
+                this.bouton = "Modifier"
+                this.nom = newObjet.nom;
+                this.valeur = newObjet.valeur;
+                for (var key in Categories)
+                    if (Categories[key] === newObjet.categorie)
+                        this.categorie = key;
+            } else {
+                this.bouton = "Ajouter"
+            }
         }
     },
     data: () => ({
@@ -75,12 +80,16 @@ export default {
         valeur: new Number("0"),
         categorie: null,
         items: Object.entries(Categories),
-        valid: false
+        valid: false,
+        bouton: "Ajouter"
     }),
     methods: {
         ajouter() {
-            if (this.$refs.form.validate()){
-                this.$emit("ajout", new Objet(this.nom, this.valeur, Categories[this.categorie]));
+            if (this.$refs.form.validate()) {
+                this.$emit(
+                    "ajout",
+                    new Objet(this.nom, this.valeur, Categories[this.categorie])
+                );
                 this.nom = "";
                 this.valeur = new Number(0);
                 this.categorie = null;
