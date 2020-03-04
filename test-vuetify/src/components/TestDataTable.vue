@@ -2,7 +2,7 @@
     <v-container>
         <v-card class="elevation-6">
             <v-card-title>
-                Les objets {{lignes.length}}
+                {{lignes.length > 1 ? "Les " + lignes.length + " objets : " : lignes.length > 0 ? "L'objet : " : "Il y a rien : "}}
                 <v-spacer></v-spacer>
                 <v-text-field
                     v-model="search"
