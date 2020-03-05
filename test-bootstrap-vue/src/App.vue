@@ -1,8 +1,13 @@
 <template>
     <div id="app">
-		<TestForm></TestForm>
-		<TestDataTable></TestDataTable>
-	</div>
+        <b-navbar variant="primary " type="dark" fixed="top" sticky class="mb-3">
+            <b-navbar-brand href="#">BootstrapVue</b-navbar-brand>
+        </b-navbar>
+        <b-container fluid="lg">
+            <TestForm @ajouter="ajout"></TestForm>
+            <TestDataTable></TestDataTable>
+		</b-container>
+    </div>
 </template>
 
 <script>
@@ -15,19 +20,16 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 export default {
     name: "App",
     components: {
-		TestDataTable,
-		TestForm
-    }
+        TestDataTable,
+        TestForm
+	},
+	methods: {
+		ajout(objet){
+			console.debug(objet)
+		}
+	}
 };
 </script>
 
 <style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-}
 </style>
