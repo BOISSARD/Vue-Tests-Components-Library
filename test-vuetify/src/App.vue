@@ -13,6 +13,7 @@
                     @editObjet="editObjet"
                     @deleteObjet="deleteObjet"
                 />
+                <TestChart></TestChart>
             </v-container>
         </v-content>
     </v-app>
@@ -21,25 +22,21 @@
 <script>
 import TestForm from "./components/TestForm";
 import TestDataTable from "./components/TestDataTable";
+import TestChart from "./components/TestChart";
 
 import Objet from "./model/objet";
 import { Categories } from "./model/categories";
+import objets from "./data/objets";
 
 export default {
     name: "App",
     components: {
         TestForm,
-        TestDataTable
+        TestDataTable,
+        TestChart
     },
     data: () => ({
-        objets: [
-            new Objet("objet5", 13, Categories.numero2),
-            new Objet("objet1", 5, Categories.numero1),
-            new Objet("objet4", 7, Categories.numero2),
-            new Objet("objet2", 15, Categories.numero1),
-            new Objet("objet6", 9, Categories.numero3),
-            new Objet("objet3", 22, Categories.numero1)
-        ],
+        objets: objets,
         colonnes: [],
         objetCourant: null
     }),
