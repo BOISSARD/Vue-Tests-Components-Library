@@ -1,8 +1,8 @@
 <template>
-    <v-form v-model="valid" lazy-validation ref="form">
-        <v-container>
+    <v-container>
+        <v-form v-model="valid" lazy-validation ref="form">
             <v-row>
-                <v-col cols="12" md="3">
+                <v-col cols="12" sm="3">
                     <v-text-field
                         v-model="nom"
                         :rules="[v => !!v || 'Le Nom est requis']"
@@ -13,18 +13,19 @@
                         dense
                     ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" sm="3">
                     <v-text-field
                         v-model="valeur"
                         :rules="[v => !!v || 'La valeur doit être un nombre']"
                         label="Valeur"
+                        placeholder="Votre valeur"
                         type="number"
                         required
                         outlined
                         dense
                     ></v-text-field>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" sm="3">
                     <v-select
                         v-model="categorie"
                         :items="items"
@@ -38,7 +39,7 @@
                         placeholder="Une catégorie"
                     ></v-select>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" sm="3">
                     <v-btn
                         large
                         block
@@ -49,8 +50,8 @@
                     >{{ bouton }}</v-btn>
                 </v-col>
             </v-row>
-        </v-container>
-    </v-form>
+        </v-form>
+    </v-container>
 </template>
 
 <script>
@@ -64,20 +65,20 @@ export default {
         objetCourant(newObjet, oldObjet) {
             console.debug(newObjet, oldObjet);
             if (newObjet !== null) {
-                this.bouton = "Modifier"
+                this.bouton = "Modifier";
                 this.nom = newObjet.nom;
                 this.valeur = newObjet.valeur;
                 for (var key in Categories)
                     if (Categories[key] === newObjet.categorie)
                         this.categorie = key;
             } else {
-                this.bouton = "Ajouter"
+                this.bouton = "Ajouter";
             }
         }
     },
     data: () => ({
         nom: "",
-        valeur: new Number("0"),
+        valeur: null,
         categorie: null,
         items: Object.entries(Categories),
         valid: false,

@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container id="zone-tableau">
         <v-card class="elevation-6">
             <v-card-title>
                 {{lignes.length > 1 ? "Les " + lignes.length + " objets : " : lignes.length > 0 ? "L'objet : " : "Il y a rien : "}}
@@ -7,15 +7,18 @@
                 <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
-                    label="Search"
+                    label="Recherche"
                     single-line
                     hide-details
+                    dense
                 ></v-text-field>
             </v-card-title>
             <v-data-table
                 :headers="colonnes"
                 :items="lignes"
                 item-key="nom"
+                fixed-header
+                :height="hauteur"
                 show-select
                 multi-sort
                 :sort-by="['categorie', 'valeur']"
@@ -39,7 +42,7 @@
                     <v-switch
                         v-model="groupDirection"
                         label="Inverser sens d'affichage"
-                        class="pa-3"
+                        class="pa-0 ma-0 ml-3"
                     ></v-switch>
                 </template>
                 <template v-slot:item.sup10="{ item }">
@@ -77,6 +80,7 @@
                             </v-list-item>
                         </v-list>
                     </v-menu>
+                    <p>{{hauteur}}</p>
                 </v-col>
                 <v-col cols="4">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -103,7 +107,8 @@ export default {
             lignes: [],
             expanded: [],
             groupDirection: false,
-            groupes: "categorie"
+            groupes: "categorie",
+            hauteur: window.innerHeight / 5
         };
     },
     watch: {
@@ -130,7 +135,6 @@ export default {
         }
     },
     props: ["colonnes", "items"],
-    mounted() {},
     methods: {
         getColor(valeur) {
             if (valeur > 20) return "red";
@@ -147,5 +151,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

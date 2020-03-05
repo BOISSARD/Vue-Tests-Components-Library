@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <b-navbar variant="secondary " type="dark" fixed="top" sticky class="mb-3">
+        <b-navbar variant="primary " type="dark" fixed="top" sticky class="mb-3">
             <b-navbar-brand href="#">BootstrapVue</b-navbar-brand>
         </b-navbar>
         <b-container fluid="lg">

@@ -12,7 +12,6 @@
                 @editObjet="editObjet"
                 @deleteObjet="deleteObjet"
             />
-            <!-- :items="objets"  desserts -->
         </v-content>
     </v-app>
 </template>
