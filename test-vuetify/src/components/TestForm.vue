@@ -6,7 +6,6 @@
                     <v-text-field
                         v-model="nom"
                         :rules="[v => !!v || 'Le Nom est requis']"
-                        :counter="10"
                         label="Nom"
                         placeholder="Votre nom"
                         required
@@ -40,7 +39,14 @@
                     ></v-select>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-btn large block color="primary" class="mr-4" @click="ajouter" :disabled="!valid">Ajouter</v-btn>
+                    <v-btn
+                        large
+                        block
+                        color="primary"
+                        class="mr-4"
+                        @click="ajouter"
+                        :disabled="!valid"
+                    >{{ bouton }}</v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -53,21 +59,41 @@ import { Categories } from "../model/categories";
 
 export default {
     name: "TestForm",
+    props: ["objetCourant"],
+    watch: {
+        objetCourant(newObjet, oldObjet) {
+            console.debug(newObjet, oldObjet);
+            if (newObjet !== null) {
+                this.bouton = "Modifier"
+                this.nom = newObjet.nom;
+                this.valeur = newObjet.valeur;
+                for (var key in Categories)
+                    if (Categories[key] === newObjet.categorie)
+                        this.categorie = key;
+            } else {
+                this.bouton = "Ajouter"
+            }
+        }
+    },
     data: () => ({
         nom: "",
         valeur: new Number("0"),
         categorie: null,
         items: Object.entries(Categories),
-        valid: false
+        valid: false,
+        bouton: "Ajouter"
     }),
     methods: {
         ajouter() {
-            //if(this.valid)
-            if (this.$refs.form.validate())
+            if (this.$refs.form.validate()) {
                 this.$emit(
                     "ajout",
                     new Objet(this.nom, this.valeur, Categories[this.categorie])
                 );
+                this.nom = "";
+                this.valeur = new Number(0);
+                this.categorie = null;
+            }
         }
     }
 };
