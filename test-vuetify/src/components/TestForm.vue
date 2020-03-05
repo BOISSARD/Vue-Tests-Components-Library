@@ -1,5 +1,4 @@
 <template>
-    <v-container>
         <v-form v-model="valid" lazy-validation ref="form">
             <v-row>
                 <v-col cols="12" sm="3">
@@ -51,7 +50,6 @@
                 </v-col>
             </v-row>
         </v-form>
-    </v-container>
 </template>
 
 <script>

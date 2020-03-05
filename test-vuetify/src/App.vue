@@ -5,13 +5,15 @@
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-content>
-            <TestForm @ajout="ajout" :objetCourant="objetCourant" />
-            <TestDataTable
-                :items="objets"
-                :colonnes="colonnes"
-                @editObjet="editObjet"
-                @deleteObjet="deleteObjet"
-            />
+            <v-container>
+                <TestForm @ajout="ajout" :objetCourant="objetCourant" />
+                <TestDataTable
+                    :items="objets"
+                    :colonnes="colonnes"
+                    @editObjet="editObjet"
+                    @deleteObjet="deleteObjet"
+                />
+            </v-container>
         </v-content>
     </v-app>
 </template>
@@ -63,7 +65,13 @@ export default {
         ajout(objet) {
             if (this.objetCourant === null) this.objets.push(objet);
             else {
-                this.objets.splice(this.objets.findIndex(ob => this.objetCourant.nom === ob.nom), 1, objet)
+                this.objets.splice(
+                    this.objets.findIndex(
+                        ob => this.objetCourant.nom === ob.nom
+                    ),
+                    1,
+                    objet
+                );
                 this.objetCourant = null;
             }
         },

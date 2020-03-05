@@ -1,5 +1,4 @@
 <template>
-    <v-container id="zone-tableau">
         <v-card class="elevation-6">
             <v-card-title>
                 {{lignes.length > 1 ? "Les " + lignes.length + " objets : " : lignes.length > 0 ? "L'objet : " : "Il y a rien : "}}
@@ -87,7 +86,6 @@
                 <v-col cols="2" md="4"></v-col>
             </v-row>
         </v-card>
-    </v-container>
 </template>
 
 <script>
