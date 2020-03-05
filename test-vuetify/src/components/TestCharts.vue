@@ -30,7 +30,7 @@ export default {
                     titre: "Test",
                     type: "pie",
                     data: this.objetsToPieByCategorie(this.objets),
-                    options: chart1_data.options
+                    options: { responsive: true }
                 },
                 {
                     titre:
