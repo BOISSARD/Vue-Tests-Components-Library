@@ -80,7 +80,6 @@
                             </v-list-item>
                         </v-list>
                     </v-menu>
-                    <p>{{hauteur}}</p>
                 </v-col>
                 <v-col cols="4">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -108,7 +107,7 @@ export default {
             expanded: [],
             groupDirection: false,
             groupes: "categorie",
-            hauteur: window.innerHeight / 5
+            hauteur: window.innerHeight / 4
         };
     },
     watch: {
