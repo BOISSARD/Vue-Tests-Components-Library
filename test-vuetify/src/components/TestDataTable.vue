@@ -104,9 +104,16 @@ export default {
             lignes: [],
             expanded: [],
             groupDirection: false,
-            groupes: "categorie",
-            hauteur: window.innerHeight / 4
+            groupes: "categorie"
         };
+    },
+    computed: {
+        hauteur() {
+            console.log(window.innerWidth)
+            if(window.innerWidth < 600)
+                return window.innerHeight
+            else return window.innerHeight / 4;
+        }
     },
     watch: {
         lignes(nouvelles) {

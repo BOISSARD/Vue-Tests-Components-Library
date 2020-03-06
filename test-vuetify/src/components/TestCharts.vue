@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-col cols="12" md="6" v-for="(chart, index) in charts" :key="index">
-            <v-card class="elevation-6 my-5 pa-5">
+            <v-card class="elevation-6 mt-3 pa-5">
                 <v-card-title>{{index}}. {{ chart.titre }}</v-card-title>
                 <canvas :id="'chart-'+index"></canvas>
             </v-card>
