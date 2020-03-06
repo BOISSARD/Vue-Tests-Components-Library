@@ -54,7 +54,7 @@ export default {
                     options: {
                         responsive: true,
                         legend: {
-                            position: "bottom",
+                            display: false,
                             fullWidth: true
                         }
                     }
@@ -90,13 +90,15 @@ export default {
                     chart.options
                 )
             );
-            console.log(this.chartsCanvas)
         },
         createChart(chartId, type, data, options) {
             const ctx = document.getElementById(chartId);
-            if(this.chartsCanvas[chartId] !== undefined)
-                this.chartsCanvas[chartId].destroy()
-            this.chartsCanvas[chartId] = new Chart(ctx, {
+            console.log()
+            if(this.chartsCanvas[chartId] !== undefined){
+                //this.chartsCanvas[chartId].destroy()
+                this.chartsCanvas[chartId].data = data
+                this.chartsCanvas[chartId].update()
+            } else this.chartsCanvas[chartId] = new Chart(ctx, {
                 type: type,
                 data: data,
                 options: options
