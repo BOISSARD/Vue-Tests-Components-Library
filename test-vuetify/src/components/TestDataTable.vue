@@ -17,6 +17,7 @@
             :items="lignes"
             item-key="nom"
             fixed-header
+            :height="hauteur"
             v-model="objetsSelectionnes"
             show-select
             multi-sort
@@ -36,7 +37,7 @@
             :items-per-page="itemsPerPage"
             @page-count="pageCount = $event"
         >
-            <!-- group-by="categorie" group-desc="true" :height="hauteur" -->
+            <!-- group-by="categorie" group-desc="true" -->
             <template v-slot:top>
                 <v-switch
                     v-model="groupDirection"

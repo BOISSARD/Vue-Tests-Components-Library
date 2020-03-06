@@ -3,7 +3,7 @@
         <v-col cols="12" sm="6" v-for="(chart, index) in charts" :key="index">
             <v-card class="elevation-6 mt-3 pa-5">
                 <v-card-title>{{index}}. {{ chart.titre }}</v-card-title>
-                <canvas :id="'chart-'+index" :height="chartHauteur"></canvas>
+                <canvas :id="'chart-'+index" ></canvas>
             </v-card>
         </v-col>
     </v-row>
