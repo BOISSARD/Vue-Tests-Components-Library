@@ -1,0 +1,8 @@
+{
+  "appId": "com.example.app",
+  "appName": "TestVuetifyMobile",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "cordova": {}
+}
