@@ -36,7 +36,7 @@
             :items-per-page="itemsPerPage"
             @page-count="pageCount = $event"
         >
-            <!-- group-by="categorie" group-desc="true"   -->
+            <!-- group-by="categorie" group-desc="true" -->
             <template v-slot:top>
                 <v-switch
                     v-model="groupDirection"
@@ -109,10 +109,9 @@ export default {
     },
     computed: {
         hauteur() {
-            console.log(window.innerWidth)
             if(window.innerWidth < 600)
-                return window.innerHeight
-            else return window.innerHeight / 4;
+                return null//window.innerHeight
+            else return window.innerHeight / 3;
         }
     },
     watch: {
