@@ -12,8 +12,9 @@
                     :colonnes="colonnes"
                     @editObjet="editObjet"
                     @deleteObjet="deleteObjet"
+                    @selectionChanged="selectionObjet"
                 />
-                <TestCharts :objets="objets"></TestCharts>
+                <TestCharts :objets="selection"></TestCharts>
             </v-container>
         </v-content>
     </v-app>
@@ -38,7 +39,8 @@ export default {
     data: () => ({
         objets: objets,
         colonnes: [],
-        objetCourant: null
+        objetCourant: null,
+        selection: []
     }),
     created() {
         for (const pro in Object.keys(new Objet())) {
@@ -77,6 +79,9 @@ export default {
         },
         deleteObjet(objet) {
             this.objets = this.objets.filter(ob => ob.nom !== objet.nom);
+        },
+        selectionObjet(selection) {
+            this.selection = selection
         }
     }
 };

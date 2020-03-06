@@ -93,9 +93,7 @@ export default {
         },
         createChart(chartId, type, data, options) {
             const ctx = document.getElementById(chartId);
-            console.log()
             if(this.chartsCanvas[chartId] !== undefined){
-                //this.chartsCanvas[chartId].destroy()
                 this.chartsCanvas[chartId].data = data
                 this.chartsCanvas[chartId].update()
             } else this.chartsCanvas[chartId] = new Chart(ctx, {

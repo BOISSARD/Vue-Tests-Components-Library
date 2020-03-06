@@ -28,14 +28,12 @@ export default {
         },
         objetsToBarByValeur: function(objets){
             objets.sort((a,b) => (a.nom > b.nom) ? 1 : -1)
-            //console.log(objets)
             let labels = [], valeurs = [], colors = []
             objets.forEach(element => {
                 labels.push(element.nom)
                 valeurs.push(element.valeur)
                 colors.push(rgbAleatoire())
             });
-            console.log(labels, valeurs, colors)
             return {
                 datasets: [{
                     data: valeurs,

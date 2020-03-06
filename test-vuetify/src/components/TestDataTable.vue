@@ -18,6 +18,7 @@
             item-key="nom"
             fixed-header
             :height="hauteur"
+            v-model="objetsSelectionnes"
             show-select
             multi-sort
             :sort-by="['categorie', 'valeur']"
@@ -104,7 +105,8 @@ export default {
             lignes: [],
             expanded: [],
             groupDirection: false,
-            groupes: "categorie"
+            groupes: "categorie",
+            objetsSelectionnes: []
         };
     },
     computed: {
@@ -114,7 +116,12 @@ export default {
             else return window.innerHeight / 3;
         }
     },
+    mounted() {
+    },
     watch: {
+        objetsSelectionnes(nouveaux){
+            this.$emit("selectionChanged", nouveaux)
+        },
         lignes(nouvelles) {
             this.lignes.forEach(element => {
                 element.sup10 = element.valeur > 10;
@@ -132,6 +139,7 @@ export default {
                 this.loading = true;
                 setTimeout(() => {
                     this.lignes = this.items;
+                    this.objetsSelectionnes = this.lignes;
                     this.loading = false;
                 }, 530); // 2300
             }
