@@ -1,9 +1,9 @@
 <template>
     <v-row>
-        <v-col cols="12" md="6" v-for="(chart, index) in charts" :key="index">
+        <v-col cols="12" sm="6" v-for="(chart, index) in charts" :key="index">
             <v-card class="elevation-6 mt-3 pa-5">
                 <v-card-title>{{index}}. {{ chart.titre }}</v-card-title>
-                <canvas :id="'chart-'+index"></canvas>
+                <canvas :id="'chart-'+index" :height="chartHauteur"></canvas>
             </v-card>
         </v-col>
     </v-row>
@@ -25,20 +25,36 @@ export default {
     },
     data() {
         return {
-            
+            chartsCanvas: []
         };
     },
     computed: {
+        chartHauteur(){
+            //console.log(window.innerWidth)
+            return window.innerWidth < 850 ? "300px" : null
+        },
         charts() {
             return [
                 {
-                    titre: "Test",
+                    titre: "Répartition catégorie",
                     type: "pie",
                     data: this.objetsToPieByCategorie(this.objets),
                     options: {
                         responsive: true,
                         legend: {
                             position: "left",
+                            fullWidth: true
+                        }
+                    }
+                },
+                {
+                    titre: "Test 2",
+                    type: "bar",
+                    data: this.objetsToBarByValeur(this.objets),
+                    options: {
+                        responsive: true,
+                        legend: {
+                            position: "bottom",
                             fullWidth: true
                         }
                     }
@@ -74,10 +90,13 @@ export default {
                     chart.options
                 )
             );
+            console.log(this.chartsCanvas)
         },
         createChart(chartId, type, data, options) {
             const ctx = document.getElementById(chartId);
-            const myChart = new Chart(ctx, {
+            if(this.chartsCanvas[chartId] !== undefined)
+                this.chartsCanvas[chartId].destroy()
+            this.chartsCanvas[chartId] = new Chart(ctx, {
                 type: type,
                 data: data,
                 options: options

@@ -12,19 +12,19 @@
                     dense
                 ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="2">
                 <v-text-field
                     v-model="valeur"
                     :rules="[v => !!v || 'La valeur doit être un nombre']"
                     label="Valeur"
-                    placeholder="Votre valeur"
+                    placeholder="Valeur"
                     type="number"
                     required
                     outlined
                     dense
                 ></v-text-field>
             </v-col>
-            <v-col cols="12" sm="3">
+            <v-col cols="12" sm="4">
                 <v-select
                     v-model="categorie"
                     :items="items"

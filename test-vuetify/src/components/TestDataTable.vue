@@ -97,8 +97,8 @@ export default {
         return {
             page: 1,
             pageCount: 0,
-            itemsPerPage: 3,
-            itemsPerPageArray: [3, 6, 12, Infinity],
+            itemsPerPage: 4,
+            itemsPerPageArray: [2, 4, 8, 12, Infinity],
             search: "",
             loading: true,
             lignes: [],
