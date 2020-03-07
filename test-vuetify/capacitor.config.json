@@ -1,5 +1,5 @@
 {
-  "appId": "com.example.app",
+  "appId": "info.boissard.testvuetify",
   "appName": "TestVuetifyMobile",
   "bundledWebRuntime": false,
   "npmClient": "npm",
